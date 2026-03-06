@@ -1,0 +1,45 @@
+# 环境文件
+.env
+
+# Python缓存
+__pycache__/
+*.py[oc]
+*.py[cod]
+*$py.class
+
+# 构建文件
+build/
+dist/
+wheels/
+*.egg-info
+
+# 虚拟环境
+.venv
+venv/
+env/
+ENV/
+
+# AI生成的响应文件
+ai_response_*.md
+
+# 测试缓存
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 包管理
+uv.lock
+
+# 其他
+*.log
+*.tmp
