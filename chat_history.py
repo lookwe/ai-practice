@@ -72,10 +72,18 @@ while True:
         # JS: messages.push({ role: 'assistant', content: aiContent });
         messages.append({"role": "assistant", "content": ai_content})
 
+        # 为了防止记忆过长，我们只保留最近的 20 条记录
+        if len(messages) > 20:
+            messages.pop(0) # 移除最旧的一条记录
+
+        console.print(f"[dim]💾 当前记忆条数：{len(messages)}[/dim]")
+
         # 3. (可选) 自动保存到文件，记录这次对话
         # 我们简单地把最新一条记录追加到 log 文件
         # JS: fs.appendFileSync('chat_log.md', `...\n`);
-        with open("chat_log.md", "a", encoding="utf-8") as f: # 'a' 代表 append (追加模式)，不会覆盖旧内容
+        # 'a' 代表 append (追加模式)，不会覆盖旧内容
+        # 'w' 代表 write (写入模式)，会覆盖旧内容
+        with open("chat_file/chat_log.md", "a", encoding="utf-8") as f:
             f.write(f"\n---\n**User**: {user_input}\n\n**AI**:\n{ai_content}\n")
 
     except Exception as e:
