@@ -17,6 +17,7 @@
 | `main.py` | 基础一问一答对话 | 简单问答，无需记忆上下文 |
 | `chat_history.py` | 多轮记忆对话 | 连续对话，需要记住历史上下文 |
 | `smart_notes.py` | 会议记录文章灵魂自动笔记生成 | 开会的内容和临时的想法和计划 |
+| `bubble_sort.py` | 冒泡排序算法实现 | 学习排序算法、算法演示 |
 
 ### main.py - 基础一问一答
 
@@ -42,6 +43,19 @@ uv run python main.py
 **快速开始**：
 ```bash
 uv run python chat_history.py
+```
+
+### bubble_sort.py - 冒泡排序算法
+
+这是一个经典的排序算法实现，具有以下特性：
+- 标准的冒泡排序算法实现
+- 包含优化版本（提前终止）
+- 提供示例代码和测试数据
+- 适合学习排序算法原理
+
+**快速开始**：
+```bash
+uv run python bubble_sort.py
 ```
 
 ## 环境要求
