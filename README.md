@@ -18,6 +18,7 @@
 | `chat_history.py` | 多轮记忆对话 | 连续对话，需要记住历史上下文 |
 | `smart_notes.py` | 会议记录文章灵魂自动笔记生成 | 开会的内容和临时的想法和计划 |
 | `bubble_sort.py` | 冒泡排序算法实现 | 学习排序算法、算法演示 |
+| `chat_multimode.py` | Ollama Cloud API 多模态对话 | 文本对话 + 图片理解，支持 Rich 美化输出 |
 
 ### main.py - 基础一问一答
 
@@ -56,6 +57,34 @@ uv run python chat_history.py
 **快速开始**：
 ```bash
 uv run python bubble_sort.py
+```
+
+### chat_multimode.py - Ollama Cloud API 多模态对话
+
+这是一个基于 Ollama Cloud API 的多模态 AI 助手，具有以下特性：
+- 支持文本对话和多模态图片理解
+- 使用 Rich 库美化命令行输出
+- 自动显示模型配置信息表格
+- 支持自定义图片路径和对话问题
+- 需要自行申请 Ollama API Key 并配置到 `.env` 文件
+
+**功能亮点**：
+- 🤖 文本对话：使用 `qwen3.5` 模型进行智能问答
+- 🖼️ 图片理解：上传本地图片，AI 自动分析描述
+- 🎨 Rich 美化：彩色面板、进度条、Markdown 格式化输出
+- ⚙️ 灵活配置：可自定义模型、图片路径和 API Key
+
+**环境配置**：
+1. 在 `.env` 文件中配置 API Key：
+```
+OLLAMA_API_KEY=your_api_key_here
+```
+
+2. 确保图片文件存在于指定路径（默认：`images/clean.png`）
+
+**快速开始**：
+```bash
+uv run python chat_multimode.py
 ```
 
 ## 环境要求
