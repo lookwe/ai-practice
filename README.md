@@ -19,6 +19,7 @@
 | `smart_notes.py` | 会议记录文章灵魂自动笔记生成 | 开会的内容和临时的想法和计划 |
 | `bubble_sort.py` | 冒泡排序算法实现 | 学习排序算法、算法演示 |
 | `chat_multimode.py` | Ollama Cloud API 多模态对话 | 文本对话 + 图片理解，支持 Rich 美化输出 |
+| `weather_assistant/` | AI 智能旅行助手 | 查询城市天气并推荐热门景点 |
 
 ### main.py - 基础一问一答
 
@@ -85,6 +86,57 @@ OLLAMA_API_KEY=your_api_key_here
 **快速开始**：
 ```bash
 uv run python chat_multimode.py
+```
+
+### weather_assistant/ - AI 智能旅行助手
+
+这是一个基于 Agent 架构的智能旅行推荐助手，具有以下特性：
+- 🤖 **Agent 自主决策**：通过 Thought-Action 循环自主规划任务执行流程
+- 🌤️ **天气查询**：自动调用工具查询城市实时天气信息
+- 🏛️ **景点推荐**：根据城市和天气情况智能推荐热门旅游景点
+- 🎨 **Rich 美化输出**：彩色命令行界面，清晰展示思考过程和 execution 结果
+- ⚙️ **灵活配置**：支持自定义 Ollama 模型、API Key 和系统提示词
+
+**功能亮点**：
+- 🔄 **智能循环**：自动执行"思考→行动→观察"循环，最多 10 次迭代
+- 🛠️ **工具集成**：内置 `get_weather` 和 `get_attraction` 两个工具函数
+- 📝 **过程可视化**：实时显示 Agent 的 Thought 和 Action 执行过程
+- 🌍 **多城市支持**：可查询任意城市的天气和景点推荐
+
+**环境配置**：
+1. 在 `.env` 文件中配置必要的 API Key：
+```
+TAVILY_API_KEY=your_tavily_api_key
+OLLAMA_API_KEY=your_ollama_api_key
+AGENT_SYSTEM_PROMPT=你的系统提示词
+MODEL_NAME=qwen3.5
+OLLAMA_BASE_URL=https://ollama.com/v1
+```
+
+2. 确保 `weather_assistant/tools.py`、`weather_assistant/weather.py`、`weather_assistant/attractions.py` 文件存在
+
+**快速开始**：
+```bash
+uv run python weather_assistant/main.py
+```
+
+**运行示例**：
+```
+=== 智能旅行助手 ===
+请输入城市名称：北京
+
+正在查询 北京的天气和景点推荐...
+
+Thought: 我需要先查询北京的天气情况
+Action: get_weather(city="北京")
+天气查询结果：晴朗，温度 25°C
+
+Thought: 根据天气情况推荐适合的景点
+Action: get_attraction(city="北京", weather="晴朗")
+景点搜索结果：共 5 条
+
+=== 推荐结果 ===
+[AI 生成的详细景点推荐内容]
 ```
 
 ## 环境要求
