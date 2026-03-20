@@ -21,7 +21,7 @@ def get_attraction(city: str, weather: str) -> list[str]:
             return []
 
         client = TavilyClient(api_key=api_key)
-        query = f"{city} {weather} 旅游景点推荐"
+        query = f"'{city}' 在'{weather}'天气下最值得去的旅游景点推荐及理由"
 
         response = client.search(query=query, max_results=5)
 
