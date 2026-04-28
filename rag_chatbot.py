@@ -227,17 +227,12 @@ class RAGKnowledgeBase:
         
         return relevant_docs
     
+
     def generate_answer(self, question: str, context: str) -> str:
-        """使用大模型生成回答
-        
-        Args:
-            question: 用户问题
-            context: 相关上下文信息
-            
-        Returns:
-            AI 生成的回答
-        """
-        # 构建提示词
+        """使用大模型生成回答，增加超时机制（2分钟）"""
+        import concurrent.futures
+        import threading
+        timeout_seconds = 120
         prompt = f"""你是一名专业的智能客服助手。请根据以下参考信息，用友好、专业的语气回答用户的问题。
 
 ## 参考信息：
@@ -254,14 +249,22 @@ class RAGKnowledgeBase:
 
 请开始回答："""
 
-        try:
-            response = self.ollama_client.chat(
-                model=TEXT_MODEL,
-                messages=[{'role': 'user', 'content': prompt}]
-            )
-            return response['message']['content']
-        except Exception as e:
-            return f"[red]❌ 请求失败：{str(e)}[/red]"
+        def call_ollama():
+            try:
+                response = self.ollama_client.chat(
+                    model=TEXT_MODEL,
+                    messages=[{'role': 'user', 'content': prompt}]
+                )
+                return response['message']['content']
+            except Exception as e:
+                return f"[red]❌ 请求失败：{str(e)}[/red]"
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(call_ollama)
+            try:
+                return future.result(timeout=timeout_seconds)
+            except concurrent.futures.TimeoutError:
+                return "[red]⚠️ 回答超时（2分钟），请稍后重试或简化问题。[/red]"
     
     def chat(self, question: str, top_k: int = 3) -> str:
         """完整的 RAG 问答流程
